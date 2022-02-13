@@ -9,21 +9,12 @@ const bcrypt = require("bcrypt")
 const randToken = require("rand-token")
 const nodemailer = require("nodemailer")
 
-const User = require("./models/user")   // USER.JS
-const Reset = require("./models/reset")   // RESET.JS
-const Ingredient = require("./models/ingredient")   // INGREDIENT.JS
-const Schedule = require("./models/schedule")   // SCHEDULE.JS
-const Receipe = require("./models/receipe")   // RECEIPE.JS
-const Favourite = require("./models/favourite")   // FAVOURITE.JS
-
-const session = require("express-session")
-const passport = require("passport")
-const passportLocalMongoose = require("passport-local-mongoose")
-app.use(session({
-    secret : "mysecret",
-    resave : false,                                   //initialise la session
-    saveUninitialized : false
-}))
+const User = require("./models/user")   // USER SCHEMA
+const Reset = require("./models/reset")   // RESET SCHEMA
+const Ingredient = require("./models/ingredient")   // INGREDIENT SCHEMA
+const Schedule = require("./models/schedule")   // SCHEDULE SCHEMA
+const Receipe = require("./models/receipe")   // RECEIPE SCHEMA
+const Favourite = require("./models/favourite")   // FAVOURITE SCHEMAS
 app.use(passport.initialize())                          // initialise passport
 app.use(passport.session())                             // cree le lien entre la session et passport
 
@@ -32,7 +23,7 @@ mongoose.connect("mongodb+srv://basco:test@cluster0.sqrhj.mongodb.net/cooking?re
       useUnifiedTopology : true
     })
 
-passport.use(User.createStrategy());                    //PASSPORT
+passport.use(User.createStrategy());                   //PASSPORT
 passport.serializeUser(User.serializeUser());           //LOCAL
 passport.deserializeUser(User.deserializeUser());       //MONGOOSE
 
